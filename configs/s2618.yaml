@@ -1,0 +1,55 @@
+name: 's2618'
+
+stage1_ckpt: '/CT/HOIMOCAP4/work/data/GPS-Gaussian/GPS-GS_stage1_final.pth'
+restore_ckpt: None
+lr: 0.0002
+wdecay: 1e-5
+batch_size: 1 # 1 #4 #1
+num_steps: 200000
+withNormal: True
+withGan: False
+rootDir: '/CT/HOIMOCAP4/work/code/ShellTexture'
+outDir: '/CT/HOIMOCAP5/static00/results/DUT'
+noRGBInput: False
+noNormalInput: False
+
+gaussian:
+  with2D: False
+  lr: 0.0001
+  sh_degree: 1
+  warmup_steps: 15000
+  num_steps: 1000000
+
+dataset:
+  baseDir: /CT/HOIMOCAP5/work/data/
+  texResGeo: 256 #256 #512 #256
+  texResGau: 512
+  texResCano: 512
+  source_id: [0, 1]
+  train_novel_id: [2, 3, 4]
+  val_novel_id: [3]
+  use_hr_img: False #True
+  use_processed_data: True
+  activeCameraIdxs: [0, 1, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23]
+  testCameraIdxs: [14, 9, 2, 21]
+  condCameraIdxs: [18, 11, 6, 0]
+  subject: Subject2618
+  fIdxs_test: [110]
+  fIdxs_train: [110]
+
+gsnet:
+  encoder_dims: [32, 48, 96]
+  decoder_dims: [48, 64, 96]
+  parm_head_dim: 32
+
+raft:
+  mixed_precision: True
+  train_iters: 3
+  val_iters: 3
+  encoder_dims: [32, 48, 96]
+  hidden_dims: [96, 96, 96]
+
+record:
+  loss_freq1: 2000
+  loss_freq2: 50000
+  eval_freq: 5000

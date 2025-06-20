@@ -1,0 +1,58 @@
+name: 's724'
+
+stage1_ckpt: '/CT/HOIMOCAP4/work/data/GPS-Gaussian/GPS-GS_stage1_final.pth'
+restore_ckpt: None
+lr: 0.0002
+wdecay: 1e-5
+batch_size: 1 # 1 #4 #1
+num_steps: 200000
+withNormal: True
+rootDir: '/CT/HOIMOCAP4/work/code/ShellTexture'
+outDir: '/CT/HOIMOCAP5/static00/results/DUT'
+noRGBInput: False
+noNormalInput: False
+
+
+gaussian:
+  lr: 0.0001
+  sh_degree: 1
+  warmup_steps: 15000
+  num_steps: 1000000
+
+dataset:
+  baseDir: /CT/HOIMOCAP5/work/data/
+  texResGeo: 256 #256 #512 #256
+  texResGau: 512
+  texResCano: 512
+  source_id: [0, 1]
+  train_novel_id: [2, 3, 4]
+  val_novel_id: [3]
+  use_hr_img: False #True
+  use_processed_data: True
+  activeCameraIdxs: [0, 3, 5, 7, 8, 9, 10, 11, 13, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 33,
+                    34, 35, 36, 37, 39, 41, 42, 44, 45, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                    61, 62, 63, 64, 65, 66, 69, 70, 71, 72, 73, 74, 75, 78, 80, 81, 82, 83, 86, 87, 88, 89,
+                    90, 92, 93, 94, 95, 96, 98, 99, 100, 102, 103, 104, 106, 108, 109, 110, 111, 112, 113,
+                    114, 115, 116, 117, 118]
+  testCameraIdxs: [2, 15, 26, 40]
+  condCameraIdxs: [47, 67, 77, 91]
+  subject: Subject0724
+  fIdxs_test: [110]
+  fIdxs_train: [110]
+
+gsnet:
+  encoder_dims: [32, 48, 96]
+  decoder_dims: [48, 64, 96]
+  parm_head_dim: 32
+
+raft:
+  mixed_precision: True
+  train_iters: 3
+  val_iters: 3
+  encoder_dims: [32, 48, 96]
+  hidden_dims: [96, 96, 96]
+
+record:
+  loss_freq1: 2000
+  loss_freq2: 50000
+  eval_freq: 5000

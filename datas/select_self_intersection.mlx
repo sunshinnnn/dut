@@ -1,0 +1,4 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Select Self Intersecting Faces"/>
+</FilterScript>
